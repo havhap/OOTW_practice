@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Codi, Settings } from '../screens/TabScreen';
+import { Codi, Home } from '../screens/TabScreen';
 import { Weather } from '../screens/WeatherScreen';
-import { Fontisto,Ionicons,MaterialCommunityIcons } from '@expo/vector-icons'
+import { Fontisto,Ionicons } from '@expo/vector-icons'
 
 const TabIcon = ({name, color}) => {
     return <Fontisto name={name} size={35} color={color} />;
@@ -24,8 +24,8 @@ const TabNavigation = () => {
             }}
         >
             <Tab.Screen name='Weather' component={Weather} options={{tabBarIcon:props =>TabIcon({...props, name:'day-cloudy' })}} />
+            <Tab.Screen name='Home' component={Home} options={{tabBarIcon:props =>TabIcon3({...props, name:'home' })}} />
             <Tab.Screen name='Codi' component={Codi} options={{tabBarIcon:props =>TabIcon3({...props, name:'shirt-outline' })}} />
-            <Tab.Screen name='Settings' component={Settings} options={{tabBarIcon:props =>TabIcon({...props, name:'spinner-cog' })}} />
         </Tab.Navigator>
     );
 };

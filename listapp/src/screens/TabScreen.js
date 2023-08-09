@@ -19,6 +19,14 @@ const StyledText = styled.Text`
 //     )
 // };
 
+export const Home = () => {
+    return(
+        <Container>
+            <StyledText>Home</StyledText>
+        </Container>
+    )
+};
+
 export const Codi = () => {
     return (
         <Container>
@@ -27,12 +35,6 @@ export const Codi = () => {
     )
 };
 
-export const Settings = () => {
-    return(
-        <Container>
-            <StyledText>Settings</StyledText>
-        </Container>
-    )
-};
+
 
 /* src/screens/TabScreen.js */
