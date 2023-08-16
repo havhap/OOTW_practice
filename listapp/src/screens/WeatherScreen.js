@@ -9,9 +9,9 @@ import rainfall from '../../assets/images/rainfall.png';
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
+
 console.log(SCREEN_WIDTH);
 console.log(SCREEN_HEIGHT);
-
 
 
 export const Weather = () => {
@@ -49,7 +49,8 @@ export const Weather = () => {
         <Text style={{fontSize:14,marginTop:15,marginLeft:20,}}>실시간 정보</Text>
 
       </View>
-      <ScrollView horizontal contentContainerStyle={styles.timeslot}>
+      <ScrollView horizontal contentContainerStyle={styles.timeslot}
+        showsHorizontalScrollIndicator={false}>
         
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 12시</Text>
@@ -172,9 +173,6 @@ export const Weather = () => {
         </View>
 
 
-
-
-
       </ScrollView>
 
     </LinearGradient> 
@@ -233,13 +231,13 @@ const styles = StyleSheet.create({
     // backgroundColor:'red',
   },
   maxtemp:{
-    fontSize:20,
+    fontSize:18,
     alignItems: 'center',
     justifyContent:'center',
     marginTop:15,
   },
   mintemp:{
-    fontSize:20,
+    fontSize:18,
     alignItems: 'center',
     justifyContent:'center',
   },
@@ -283,7 +281,7 @@ const styles = StyleSheet.create({
   },
   rainfallst:{//빗물아이콘
     width:19,
-    height:20,
+    height:21,
     marginTop:7,
   },
   rainfallpc:{//강수량퍼센트
@@ -294,3 +292,4 @@ const styles = StyleSheet.create({
 //dimensions api를 이용해서 핸드폰 사이즈를 가져오기
 });
 //시간대별온도에서 온도가 아이콘에 밀리는건 marginTop때문인것같
+//showsHorizontalScrollIndicator={false} 스크롤바 숨김 눈에 안보이게

@@ -1,7 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Codi, Home } from '../screens/TabScreen';
+import { Codi } from '../screens/TabScreen';
 import { Weather } from '../screens/WeatherScreen';
+import { Home } from '../screens/Home';
 import { Fontisto,Ionicons } from '@expo/vector-icons'
 
 const TabIcon = ({name, color}) => {
@@ -21,6 +22,7 @@ const TabNavigation = () => {
                 tabBarStyle: {height:70},
                 headerShown:false,
                 tabBarShowLabel:false,
+                tabBarActiveTintColor: '#37B7FF'
             }}
         >
             <Tab.Screen name='Weather' component={Weather} options={{tabBarIcon:props =>TabIcon({...props, name:'day-cloudy' })}} />
