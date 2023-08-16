@@ -9,5 +9,5 @@ https://nomadcoders.co/react-native-for-beginners/lobby
 push문제때문에 해당 파일은 main branch에 있습니다. 
 
 코드 이용시 보이는 화면 (화질이 안좋은 이유는 영상의 gif 변환때문)  
-<img width="80%" src="https://github.com/havhap/OOTW_practice/issues/4#issue-1853264578"/>
+<img width="80%" src="https://github.com/havhap/OOTW_practice/assets/104005566/5ee516a3-bcfe-4632-a529-eb57582e4722"/>
 
