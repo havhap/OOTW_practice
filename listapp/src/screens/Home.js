@@ -1,8 +1,10 @@
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import {Dimensions, StyleSheet, Text, View, Image } from 'react-native';
-import homesunny1 from '../../assets/images/homesunny1.png';
-import rain from '../../assets/images/rain.png';
+
+// import halfsun2 from '../../assets/images/halfsun2.png';
+// import halfrain2 from '../../assets/images/halfrain2.png';
+// import halfcloudy from '../../assets/images/halfcloudy.png';
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
@@ -10,11 +12,23 @@ const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 console.log(SCREEN_WIDTH);
 console.log(SCREEN_HEIGHT);
 
+
+
+const weatherImages = {
+  sunny: require('../../assets/images/halfsun.png'),
+  rainy: require('../../assets/images/halfrain.png'),
+  cloudy: require('../../assets/images/halfcloudy.png'),
+  snow:require('../../assets/images/halfsnow.png'),
+  // ... 다른 날씨 상태에 대한 이미지 매칭
+};
+
+
+
 export const Home = () => {
     return (
         <LinearGradient colors={['#D1EFFF', '#FFFFFF']} style={styles.container}>
 
-              <Image source={homesunny1}
+              <Image source={weatherImages.snow}
                 style={styles.homeweathericon}
               />
 
@@ -37,7 +51,7 @@ export const Home = () => {
 
           <View style={styles.codicomment}>
             <View style={styles.codibox}>
-
+              <Text style={styles.codi}>양말을 챙기세요</Text>
             </View>
             <Text style={styles.comment}>기온에 맞는 코디를 참고하세요</Text>
           </View>
@@ -53,9 +67,10 @@ const styles = StyleSheet.create({
 
   homeweathericon: {
     width:SCREEN_WIDTH,
-    height:SCREEN_WIDTH,
-    marginTop:-(SCREEN_WIDTH/2)
+    height:SCREEN_WIDTH/2,
   },
+
+
   weather:{
     flex:1,
     flexDirection:'row',
@@ -104,6 +119,13 @@ const styles = StyleSheet.create({
     height:(SCREEN_WIDTH-80)/2,
     backgroundColor:"white",
     borderRadius:18,
+    alignItems: 'center',
+    justifyContent:'center',
+  },
+  codi:{
+    fontSize:20,
+    // alignItems: 'center',
+    // justifyContent:'center',
   },
   comment:{
     fontSize:20,

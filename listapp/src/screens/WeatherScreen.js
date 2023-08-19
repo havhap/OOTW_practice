@@ -1,9 +1,11 @@
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import {Dimensions, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import { Fontisto,FontAwesome,Entypo } from '@expo/vector-icons';
-import sunnyicon from '../../assets/images/sunnyicon.png';
+import { Fontisto,FontAwesome,Entypo,Ionicons } from '@expo/vector-icons';
+// import sunnyicon from '../../assets/images/sunnyicon.png';
 import rainfall from '../../assets/images/rainfall.png';
+// import cloud80px from '../../assets/images/cloud80px.png';
+// import {  WithLocalSvg } from 'react-native-svg';
 
 //화면크기 맞추기
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -12,6 +14,18 @@ const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 console.log(SCREEN_WIDTH);
 console.log(SCREEN_HEIGHT);
+
+//날씨아이콘
+const icons = {
+  "Thunderstorm": "lightning",
+  "Drizzle": "rains",
+  "Rain": "rainy",
+  "Snow" : "snow",
+  "Atmosphere": "cloudy-gusts",
+  "Clear" : "day-sunny",
+  "Clouds": "cloudy",
+};
+
 
 
 export const Weather = () => {
@@ -35,9 +49,7 @@ export const Weather = () => {
 
         <View style={styles.weatherright}>
             <View>
-              <Image source={sunnyicon}
-                style={{width:140,height:140,marginTop:60}}
-              />
+              <Fontisto name="rain" size={140} marginTop={60}/>
             </View>
             <Text style={styles.city}>강남구 대치동</Text>
         
@@ -54,9 +66,7 @@ export const Weather = () => {
         
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 12시</Text>
-          <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>15°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -66,9 +76,7 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 1시</Text>
-          <Image source={sunnyicon}
-              style={styles.timeicon}
-            />
+          <Fontisto name="snow" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>15°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -78,9 +86,7 @@ export const Weather = () => {
         </View>
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 2시</Text>
-          <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>15°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -90,9 +96,7 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 3시</Text>
-            <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>15°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -102,9 +106,7 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 4시</Text>
-          <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>15°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -114,9 +116,7 @@ export const Weather = () => {
           
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 5시</Text>
-          <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>15°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -126,9 +126,7 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 6시</Text>
-          <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>14°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -138,9 +136,7 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 7시</Text>
-          <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>15°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -150,9 +146,7 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 8시</Text>
-          <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
           <Text style={styles.parttemp}>13°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -162,9 +156,7 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 9시</Text>
-          <Image source={sunnyicon}
-                style={styles.timeicon}
-              />
+          <Fontisto name="rain" size={40} marginTop={15} />
           <Text style={styles.parttemp}>11°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
@@ -275,12 +267,17 @@ const styles = StyleSheet.create({
     fontWeight:'500',
   },
   timeicon:{//시간대별 날씨아이콘
-    width:40,
-    height:40,
+    width:50,
+    height:50,
+    marginTop:15,   
+  },
+  timeicon2:{//시간대별 날씨아이콘
+    width:50,
+    height:50,
     marginTop:15,   
   },
   rainfallst:{//빗물아이콘
-    width:19,
+    width:20,
     height:21,
     marginTop:7,
   },

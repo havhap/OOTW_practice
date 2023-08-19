@@ -5,7 +5,6 @@
 // AppRegistry.registerComponent('App', () => App);
 
 // export default App;
-
 import React from 'react';
 // import { AppRegistry } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';

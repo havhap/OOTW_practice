@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Codi } from '../screens/TabScreen';
+import { Codi } from '../screens/CodiScreen';
 import { Weather } from '../screens/WeatherScreen';
 import { Home } from '../screens/Home';
 import { Fontisto,Ionicons } from '@expo/vector-icons'
