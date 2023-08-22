@@ -24,7 +24,8 @@ export const Codi = () => {
                         <Text style={styles.codiname}>코{"\n"}디{"\n"}{"\t"}1</Text>
                     </View>
                     <View style={styles.codibox}>
-                        <Text style={styles.codicomment}>양말을 챙기세요</Text>
+                        <Text style={styles.codicomment}>추천 코디 : 반팔 반바지 볼캡{"\n"}
+추천 색상 : 그린, 화이트</Text>
                     </View>
                 </View>
 
@@ -33,7 +34,8 @@ export const Codi = () => {
                         <Text style={styles.codiname}>코{"\n"}디{"\n"}{"\t"}2</Text>
                     </View>
                     <View style={styles.codibox}>
-                        <Text style={styles.codicomment}>양말을 챙기세요</Text>
+                        <Text style={styles.codicomment}>추천 코디 : 나시 가디건 반바지{"\n"}
+추천 색상 : 화이트, 블루</Text>
                     </View>
                 </View>
 
@@ -42,7 +44,8 @@ export const Codi = () => {
                         <Text style={styles.codiname}>코{"\n"}디{"\n"}{"\t"}3</Text>
                     </View>
                     <View style={styles.codibox}>
-                        <Text style={styles.codicomment}>양말을 챙기세요</Text>
+                        <Text style={styles.codicomment}>추천 코디 : 나시 셔츠 긴바지{"\n"}
+추천 색상 : 블루, 블랙</Text>
                     </View>
                 </View>
             </View>
