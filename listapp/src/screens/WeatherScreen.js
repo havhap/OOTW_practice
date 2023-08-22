@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 import {Dimensions, StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { Fontisto,FontAwesome,Entypo,Ionicons } from '@expo/vector-icons';
@@ -26,9 +27,97 @@ const icons = {
   "Clouds": "cloudy",
 };
 
+const renderWeatherIcon = (weatherStatus) => {
+  let iconName = "";
+
+  switch (weatherStatus) {
+    case "Thunderstorm":
+      iconName = "lightning";
+      break;
+    case "Drizzle":
+      iconName = "rains";
+      break;
+    case "Rain":
+      iconName = "rainy";
+      break;
+    case "Snow":
+      iconName = "snow";
+      break;
+    case "Atmosphere":
+      iconName = "cloudy-gusts";
+      break;
+    case "Clear":
+      iconName = "day-sunny";
+      break;
+    case "Clouds":
+      iconName = "cloudy";
+      break;
+    default:
+      iconName = "cloudy"; // 기본 아이콘
+  }
+
+  return (
+    <Fontisto name={iconName} size={140} marginTop={60} />
+  );
+};
+
+export const WeekWeather = () => {
+  const [weekWeatherData, setWeekWeatherData] = useState(null);
+
+  useEffect(() => {
+    const fetchWeekWeatherData = async () => {
+      try {
+        const city = 'Seoul';
+        const apiKey = '5fc05e00b4b237301b07feb310b7ff8f';
+        const lang = 'kr';
+        const weekApiURI = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&lang=${lang}&units=metric`;
+
+        const response = await axios.get(weekApiURI);
+        setWeekWeatherData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // Call the fetchWeekWeatherData function when the component mounts
+    fetchWeekWeatherData();
+  }, []);
+
+  if (!weekWeatherData) {
+    // 주간 날씨 데이터가 아직 로드되지 않은 경우, 로딩 상태를 보여줄 수 있습니다.
+    return <Text>Loading...</Text>;
+  }}
 
 
 export const Weather = () => {
+
+  const [weatherData, setWeatherData] = useState(null);
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const city = 'Seoul'; 
+        const apiKey = '5fc05e00b4b237301b07feb310b7ff8f';
+        const lang = 'kr';
+        const dayApiURI = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=${lang}&units=metric`;
+
+        const response = await axios.get(dayApiURI);
+        setWeatherData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // Call the fetchWeatherData function when the component mounts
+    fetchWeatherData();
+  }, []);
+
+
+  if (!weatherData) {
+    // 날씨 데이터가 아직 로드되지 않은 경우, 로딩 상태를 보여줄 수 있습니다.
+    return <Text>Loading...</Text>;
+  }
+
     return (
       <LinearGradient colors={['#83D0FB', '#D1EFFF']} style={styles.container}>
       <View style={{flex:1,}}>
@@ -40,18 +129,19 @@ export const Weather = () => {
       <View style = {styles.weather}>
         <View style={styles.weatherleft}>
           <View style={styles.day}>
-            <Text style={styles.temp}>19°</Text>
-            <Text style={styles.description}>맑음</Text>
-            <Text style={styles.maxtemp}>최고 33º</Text>
-            <Text style={styles.mintemp}>최저 25º</Text>
+            <Text style={styles.temp}>{`${Math.round(weatherData.main.temp)}°`}</Text>
+            <Text style={styles.description}>{weatherData.weather[0].description}</Text>
+            <Text style={styles.maxtemp}>{`최고 ${Math.round(weatherData.main.temp_max)}°`}</Text>
+            <Text style={styles.mintemp}>{`최저 ${Math.round(weatherData.main.temp_min)}°`}</Text>
           </View>
         </View>
 
         <View style={styles.weatherright}>
             <View>
-              <Fontisto name="rain" size={140} marginTop={60}/>
+              {renderWeatherIcon(weatherData.weather[0].main)}
+              {/* <Fontisto name="rain" size={140} marginTop={60}/> */}
             </View>
-            <Text style={styles.city}>강남구 대치동</Text>
+            <Text style={styles.city}>중구 세종대로 22길</Text>
         
         </View>
       </View>
@@ -67,27 +157,7 @@ export const Weather = () => {
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 12시</Text>
           <Fontisto name="cloudy" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>15°</Text>
-          <Image source={rainfall}//강수량이미지
-              style={styles.rainfallst}
-          />
-          <Text style={styles.rainfallpc}>10%</Text>
-        </View>
-
-        <View style={styles.timetemp}>
-          <Text style={styles.time}>오전 1시</Text>
-          <Fontisto name="snow" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>15°</Text>
-          <Image source={rainfall}//강수량이미지
-              style={styles.rainfallst}
-          />
-          <Text style={styles.rainfallpc}>10%</Text>
-
-        </View>
-        <View style={styles.timetemp}>
-          <Text style={styles.time}>오전 2시</Text>
-          <Fontisto name="cloudy" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>15°</Text>
+          <Text style={styles.parttemp}>27°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
           />
@@ -96,58 +166,18 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 3시</Text>
-          <Fontisto name="cloudy" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>15°</Text>
-          <Image source={rainfall}//강수량이미지
-              style={styles.rainfallst}
-          />
-          <Text style={styles.rainfallpc}>30%</Text>
-        </View>
-
-        <View style={styles.timetemp}>
-          <Text style={styles.time}>오전 4시</Text>
-          <Fontisto name="cloudy" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>15°</Text>
+          <Fontisto name="snow" size={40} marginTop={15}/>
+          <Text style={styles.parttemp}>26°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
           />
           <Text style={styles.rainfallpc}>10%</Text>
-        </View>
-          
-        <View style={styles.timetemp}>
-          <Text style={styles.time}>오전 5시</Text>
-          <Fontisto name="cloudy" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>15°</Text>
-          <Image source={rainfall}//강수량이미지
-              style={styles.rainfallst}
-          />
-          <Text style={styles.rainfallpc}>20%</Text>
-        </View>
 
+        </View>
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 6시</Text>
           <Fontisto name="cloudy" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>14°</Text>
-          <Image source={rainfall}//강수량이미지
-              style={styles.rainfallst}
-          />
-          <Text style={styles.rainfallpc}>20%</Text>
-        </View>
-
-        <View style={styles.timetemp}>
-          <Text style={styles.time}>오전 7시</Text>
-          <Fontisto name="cloudy" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>15°</Text>
-          <Image source={rainfall}//강수량이미지
-              style={styles.rainfallst}
-          />
-          <Text style={styles.rainfallpc}>20%</Text>
-        </View>
-
-        <View style={styles.timetemp}>
-          <Text style={styles.time}>오전 8시</Text>
-          <Fontisto name="cloudy" size={40} marginTop={15}/>
-          <Text style={styles.parttemp}>13°</Text>
+          <Text style={styles.parttemp}>27°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
           />
@@ -156,14 +186,63 @@ export const Weather = () => {
 
         <View style={styles.timetemp}>
           <Text style={styles.time}>오전 9시</Text>
-          <Fontisto name="rain" size={40} marginTop={15} />
-          <Text style={styles.parttemp}>11°</Text>
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
+          <Text style={styles.parttemp}>28°</Text>
           <Image source={rainfall}//강수량이미지
               style={styles.rainfallst}
           />
-          <Text style={styles.rainfallpc}>0%</Text>
+          <Text style={styles.rainfallpc}>30%</Text>
         </View>
 
+        <View style={styles.timetemp}>
+          <Text style={styles.time}>오후 12시</Text>
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
+          <Text style={styles.parttemp}>28°</Text>
+          <Image source={rainfall}//강수량이미지
+              style={styles.rainfallst}
+          />
+          <Text style={styles.rainfallpc}>10%</Text>
+        </View>
+          
+        <View style={styles.timetemp}>
+          <Text style={styles.time}>오후 3시</Text>
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
+          <Text style={styles.parttemp}>28°</Text>
+          <Image source={rainfall}//강수량이미지
+              style={styles.rainfallst}
+          />
+          <Text style={styles.rainfallpc}>20%</Text>
+        </View>
+
+        <View style={styles.timetemp}>
+          <Text style={styles.time}>오후 6시</Text>
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
+          <Text style={styles.parttemp}>27°</Text>
+          <Image source={rainfall}//강수량이미지
+              style={styles.rainfallst}
+          />
+          <Text style={styles.rainfallpc}>20%</Text>
+        </View>
+
+        <View style={styles.timetemp}>
+          <Text style={styles.time}>오후 9시</Text>
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
+          <Text style={styles.parttemp}>26°</Text>
+          <Image source={rainfall}//강수량이미지
+              style={styles.rainfallst}
+          />
+          <Text style={styles.rainfallpc}>20%</Text>
+        </View>
+
+        <View style={styles.timetemp}>
+          <Text style={styles.time}>오전 12시</Text>
+          <Fontisto name="cloudy" size={40} marginTop={15}/>
+          <Text style={styles.parttemp}>26°</Text>
+          <Image source={rainfall}//강수량이미지
+              style={styles.rainfallst}
+          />
+          <Text style={styles.rainfallpc}>10%</Text>
+        </View>
 
       </ScrollView>
 

@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 import {Dimensions, StyleSheet, Text, View, Image } from 'react-native';
 
@@ -25,25 +26,68 @@ const weatherImages = {
 
 
 export const Home = () => {
+  const [weatherData, setWeatherData] = useState(null);
+
+  useEffect(() => {
+    const fetchWeatherData = async () => {
+      try {
+        const city = 'Seoul'; 
+        const apiKey = '5fc05e00b4b237301b07feb310b7ff8f';
+        const lang = 'kr';
+        const dayApiURI = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&lang=${lang}&units=metric`;
+
+        const response = await axios.get(dayApiURI);
+        setWeatherData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchWeatherData();
+  }, []);
+
+  const chooseWeatherImage = () => {
+    const weather = weatherData.weather[0].main.toLowerCase(); // 날씨 상태를 소문자로 가져옴
+
+    // 날씨 상태에 따라 이미지 선택
+    switch (weather) {
+      case 'rain':
+        return weatherImages.rainy;
+      case 'clouds':
+        return weatherImages.cloudy;
+      case 'snow':
+        return weatherImages.snow;
+      case 'clear':
+        return weatherImages.sunny;
+      default:
+        return weatherImages.sunny; // 기본 이미지
+    }
+  };
+
+
+  if (!weatherData) {
+    // 날씨 데이터가 아직 로드되지 않은 경우, 로딩 상태를 보여줄 수 있습니다.
+    return <Text>Loading...</Text>;
+  }
+
+  const weatherImage = chooseWeatherImage();
+
     return (
         <LinearGradient colors={['#D1EFFF', '#FFFFFF']} style={styles.container}>
 
-              <Image source={weatherImages.snow}
-                style={styles.homeweathericon}
-              />
+          <Image source={weatherImage} style={styles.homeweathericon} />
 
           {/* //날씨 전체 틀// */}
           <View style={styles.weather}>        
             
             <View style={styles.weatherleft}>
-              <Text style={styles.description}>오늘의 날씨는{"\n"}{"\t"}맑음이네요</Text>
+              <Text style={styles.description}>{`오늘의 날씨는\n${weatherData.weather[0].description}`}</Text>
             </View>
             <View style={styles.weatherright}>
-              <Text style={styles.temp}>19°</Text>
+              <Text style={styles.temp}>{`${Math.round(weatherData.main.temp)}°`}</Text>
               <View style={styles.maxmin}>
-                <Text style={styles.maxtemp}>최고 23°</Text>
+                <Text style={styles.maxtemp}>{`최고 ${Math.round(weatherData.main.temp_max)}°`}</Text>
                 <Text style={{fontSize:15}}>/</Text>
-                <Text style={styles.mintemp}>최저 17°</Text>
+                <Text style={styles.mintemp}>{`최저 ${Math.round(weatherData.main.temp_min)}°`}</Text>
               </View>
             </View>
             
@@ -51,7 +95,8 @@ export const Home = () => {
 
           <View style={styles.codicomment}>
             <View style={styles.codibox}>
-              <Text style={styles.codi}>양말을 챙기세요</Text>
+              <Text style={styles.codi}>추천 코디 : 반팔 반바지 볼캡{"\n"}
+추천 색상 : 그린, 화이트</Text>
             </View>
             <Text style={styles.comment}>기온에 맞는 코디를 참고하세요</Text>
           </View>
